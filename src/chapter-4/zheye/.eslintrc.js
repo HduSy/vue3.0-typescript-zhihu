@@ -19,7 +19,9 @@ module.exports = {
     'quotes': [0, 'single'], //引号
     "semi": 0, //语句强制分号结尾
     'no-trailing-spaces': 0, //一行结束后面不要有空格
-    'comma-spacing': 0 //逗号前后的空格
+    'comma-spacing': 0, //逗号前后的空格
+    "no-multi-spaces": 0, //不能用多余的空格
+    'spaced-comment': 0
   }
 }
 //常用规则配置列表
