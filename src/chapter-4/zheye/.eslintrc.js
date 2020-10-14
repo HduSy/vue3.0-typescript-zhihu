@@ -21,7 +21,8 @@ module.exports = {
     'no-trailing-spaces': 0, //一行结束后面不要有空格
     'comma-spacing': 0, //逗号前后的空格
     "no-multi-spaces": 0, //不能用多余的空格
-    'spaced-comment': 0
+    'spaced-comment': 0,
+    "no-useless-escape": 0
   }
 }
 //常用规则配置列表

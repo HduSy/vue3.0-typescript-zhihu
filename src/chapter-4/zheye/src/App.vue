@@ -1,11 +1,28 @@
 <template>
   <div class="container">
     <global-header :user="currentUser"/>
+    <form>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input v-model="emailData.val" @blur="validateEmail" type="email" class="form-control" id="exampleInputEmail1"
+               aria-describedby="emailHelp">
+        <small id="emailHelp" class="form-text text-muted">{{ emailData.message }}</small>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1">
+      </div>
+      <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
     <column-list :list="list"/>
   </div>
 </template>
 <script lang="ts">
-import {defineComponent} from 'vue'
+import {defineComponent, reactive} from 'vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import ColumnList, {ColumnProps} from "@/components/ColumnList.vue";
 import GlobalHeader, {UserProps} from "@/components/GlobalHeader.vue";
@@ -48,10 +65,30 @@ export default defineComponent({
     // eslint-disable-next-line vue/no-unused-components
     GlobalHeader
   },
-  setup(props) {
+  setup() {
+    const emailReg = /^([a-z0-9_\.-]+)@([\da-z\.]+)\.([a-z\.]{2,6})$/g
+    const emailData = reactive({
+      val: '',
+      error: false,
+      message: ''
+    })
+    const validateEmail = () => {
+      if (emailData.val.trim() === '') {
+        emailData.error = true
+        emailData.message = 'email required'
+      } else if (!emailReg.test(emailData.val)) {
+        emailData.error = true
+        emailData.message = 'email is not right'
+      } else {
+        emailData.error = false
+        emailData.message = ''
+      }
+    }
     return {
       list: testData,
-      currentUser
+      currentUser,
+      emailData,
+      validateEmail
     }
   }
 })
